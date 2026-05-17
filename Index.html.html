@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <!-- Modern Premium Font Setup -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Design Variables using your preferred teal palette */
+        :root {
+            --primary: #3faaa4;
+            --primary-hover: #2d8b85;
+            --primary-light: #d6f2f0;
+            --bg-gradient: linear-gradient(135deg, #eef9f8 0%, #9ad9d5 100%);
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #d1ebe9;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset and Baseline */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: var(--text-main);
+        }
+
+        /* Container Card */
+        .registration-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 700px;
+            padding: 45px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 20px 40px rgba(154, 217, 213, 0.3), 
+                        0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Header Layout */
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a3634;
+            letter-spacing: -0.5px;
+            margin-bottom: 35px;
+        }
+
+        /* Responsive Layout Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Form Controls */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c4a47;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        /* Elements Styling */
+        .input-group input[type="text"],
+        .input-group input[type="date"],
+        .input-group input[type="week"],
+        .input-group input[type="file"],
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        /* Focused States */
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+            background-color: #fff;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Sub-Headings Layout */
+        h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a3634;
+            margin: 35px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #cbdcdb;
+        }
+
+        /* Interactive Selection Matrix (Hobbies & Gender) */
+        .pill-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill-item {
+            position: relative;
+        }
+
+        .pill-item input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .pill-label {
+            display: inline-block;
+            padding: 10px 22px;
+            background-color: #fff;
+            border: 1.5px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a6b68;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .pill-item input:checked + .pill-label {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-hover);
+            font-weight: 600;
+        }
+
+        .pill-label:hover {
+            border-color: var(--primary);
+            background-color: #fafafa;
+        }
+
+        /* Form Actions Row */
+        .action-flex {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #cbdcdb;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(63, 170, 164, 0.3);
+        }
+
+        input[type="submit"]:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(63, 170, 164, 0.4);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            color: #7f8c8d;
+            border: 1.5px solid #cbdcdb;
+        }
+
+        .btn-reset:hover {
+            background-color: #f4f9f9;
+            color: var(--text-main);
+            border-color: #9ad9d5;
+        }
+
+        /* Media Queries (Mobile Adaptability) */
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .registration-card {
+                padding: 25px;
+            }
+            .action-flex {
+                flex-direction: column-reverse;
+            }
+            input[type="submit"], input[type="reset"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="registration-card">
+        <h1>Registration Form</h1>
+
+        <form>  
+            <div class="form-grid">
+                
+                <!-- First Name Input -->
+                <div class="input-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" name="First name" id="fname" placeholder="Enter fname"> 
+                </div>
+                
+                <!-- Last Name Input -->
+                <div class="input-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" name="Last name" id="lname" placeholder="Enter lname"> 
+                </div>
+
+                <!-- Email Input -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" placeholder="Enter email"> 
+                </div>
+
+                <!-- Password Input -->
+                <div class="input-group">
+                    <label for="pass">Password</label>
+                    <input type="text" name="password" id="pass" placeholder="Enter password">
+                </div>
+
+                <!-- Age Input -->
+                <div class="input-group">
+                    <label for="age">Age</label>
+                    <input type="text" name="age" id="age" placeholder="Enter age"> 
+                </div>
+
+                <!-- Date of Birth Input -->
+                <div class="input-group">
+                    <label for="D.O.B">Date of Birth</label>
+                    <input type="date" name="D.O.B" id="D.O.B" placeholder="Enter D.O.B">
+                </div>
+
+                <!-- Mobile Number Input -->
+                <div class="input-group">
+                    <label for="M.NO.">Mobile Number</label>
+                    <input type="text" name="M.NO." id="M.NO." placeholder="Enter Mobile Number">
+                </div>
+         
+                <!-- Week Input Element -->
+                <div class="input-group">
+                    <label>Registration Week</label>
+                    <input type="week"> 
+                </div>
+
+                <!-- Photo Upload Field -->
+                <div class="input-group full-width">
+                    <label for="photo">Upload Photo</label>
+                    <input type="file" name="photo" id="photo" placeholder="upload photo"> 
+                </div>
+                
+                <!-- Branch Dropdown Picker -->
+                <div class="input-group full-width">
+                    <label>Select Department</label>
+                    <select name="department" id="department">
+                        <option value="cse">cse</option>
+                        <option value="data science">data science</option>
+                        <option value="AI-ML">AI-ML</option>
+                        <option value="ME">ME</option>
+                        <option value="IT">IT</option>
+                        <option value="Chemical">Chemical</option>
+                    </select>
+                </div>
+
+                <!-- Biography Textarea Box -->
+                <div class="input-group full-width">
+                    <label>About Yourself</label>
+                    <textarea name="about" id="about" rows="6" cols="8" placeholder=" I am Divanshu Sharma. &#10; I studied in Nims University"></textarea>
+                </div>
+            </div>
+
+            <!-- Hobbies Dynamic Pill Controls -->
+            <h2>Hobbies</h2>
+            <div class="pill-wrapper">
+                <div class="pill-item">
+                    <input type="checkbox" name="hobbies" id="reading">
+                    <label for="reading" class="pill-label">Reading</label>
+                </div>
+                <div class="pill-item">
+                    <input type="checkbox" name="hobbies" id="traveling">
+                    <label for="traveling" class="pill-label">Traveling</label>
+                </div>
+                <div class="pill-item">
+                    <input type="checkbox" name="hobbies" id="playing">
+                    <label for="playing" class="pill-label">playing</label>
+                </div>
+                <div class="pill-item">
+                    <input type="checkbox" name="hobbies" id="sleeping">
+                    <label for="sleeping" class="pill-label">sleeping</label>
+                </div>
+                <div class="pill-item">
+                    <input type="checkbox" name="hobbies" id="coding">
+                    <label for="coding" class="pill-label">coding</label>
+                </div>
+            </div>
+
+            <!-- Gender Identity Selector Controls -->
+            <h2>Select your gender</h2>
+            <div class="pill-wrapper">
+                <div class="pill-item">
+                    <input type="radio" name="gender" id="male">
+                    <label for="male" class="pill-label">Male</label>
+                </div>
+                <div class="pill-item">
+                    <input type="radio" name="gender" id="female">
+                    <label for="female" class="pill-label">Female</label>
+                </div>
+                <div class="pill-item">
+                    <input type="radio" name="gender" id="prefer-not-to-say">
+                    <label for="prefer-not-to-say" class="pill-label">Prefer not to say</label>
+                </div>
+            </div>
+
+            <!-- Submission and Clear Action Layout -->
+            <div class="action-flex">
+                <input type="reset" value="reset" class="btn-reset"> 
+                <input type="submit" value="Submit">
+            </div>
+            
+        </form>
+    </div>
+
+</body>
+</html>
